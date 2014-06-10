@@ -40,7 +40,7 @@ class SimpleAtomicLong
      */
     public long get()
     {
-        long value;
+        long value=0;
 
         // TODO -- you fill in here
 
