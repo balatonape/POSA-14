@@ -20,8 +20,9 @@ public class PingPongRight {
     /**
      * Latch that will be decremented each time a thread exits.
      */
-    public static CountDownLatch latch = new CountDownLatch(2); // TODO - You fill in here
-
+     // TODO - You fill in here
+    public static CountDownLatch latch = new CountDownLatch(2);
+    
     /**
      * @class PlayPingPongThread
      *
@@ -34,10 +35,6 @@ public class PingPongRight {
         /**
          * Constructor initializes the data member.
          */
-    	
-    	int FIRST_SEM = 0;
-    	int SECOND_SEM = 1;
-    	int maxIteration ;
     	
         public PlayPingPongThread (/* TODO - You fill in here */String _str, SimpleSemaphore semaOne, SimpleSemaphore semaTwo, int maxIt)
         {
@@ -74,12 +71,16 @@ public class PingPongRight {
         	mSimpleSema[SECOND_SEM].release();
         }
         
+        private int FIRST_SEM = 0;
+        private int SECOND_SEM = 1;
+        private int maxIteration ;
+        
         /**
          * String to print (either "ping!" or "pong"!) for each
          * iteration.
          */
         // TODO - You fill in here.
-        protected String mStringToPrint;
+        private String mStringToPrint;
 
         /**
          * The two SimpleSemaphores use to alternate pings and pongs.
@@ -105,9 +106,9 @@ public class PingPongRight {
             // Create the ping and pong threads, passing in the string
             // to print and the appropriate SimpleSemaphores.
             PlayPingPongThread ping =
-                new PlayPingPongThread(/* TODO - You fill in here */"Ping!", pingSem, pongSem, mMaxIterations);
+                new PlayPingPongThread(/* TODO - You fill in here */ "Ping!", pingSem, pongSem, mMaxIterations);
             PlayPingPongThread pong =
-                new PlayPingPongThread(/* TODO - You fill in here */"Pong!", pongSem, pingSem, mMaxIterations);
+                new PlayPingPongThread(/* TODO - You fill in here */ "Pong!", pongSem, pingSem, mMaxIterations);
             
             // Initiate the ping and pong threads, which will call the
             // run() hook method.

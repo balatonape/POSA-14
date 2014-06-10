@@ -18,9 +18,9 @@ public class SimpleSemaphore {
                             boolean fair)
     { 
         // TODO - you fill in here
-    	numPermits = permits;
-    	rentLock = new ReentrantLock(fair);
-    	cond = rentLock.newCondition();
+    	availPermits = permits;
+    	renLock = new ReentrantLock(fair);
+    	cond = renLock.newCondition();
     }
 
     /**
@@ -29,13 +29,13 @@ public class SimpleSemaphore {
      */
     public void acquire() throws InterruptedException {
         // TODO - you fill in here
-    	rentLock.lockInterruptibly();
+    	renLock.lockInterruptibly();
     	try{
-    		while (numPermits < 1)
+    		while (availPermits < 1)
 				cond.await();
-			numPermits--;
+			availPermits--;
 		} finally {
-			rentLock.unlock();
+			renLock.unlock();
     	}
     }
 
@@ -45,13 +45,13 @@ public class SimpleSemaphore {
      */
     public void acquireUninterruptibly() {
         // TODO - you fill in here
-    	rentLock.lock();
+    	renLock.lock();
 		try {
-			while (numPermits < 1)
+			while (availPermits < 1)
 				cond.awaitUninterruptibly();
-			numPermits--;
+			availPermits--;
 		} finally {
-			rentLock.unlock();
+			renLock.unlock();
 		}
     }
 
@@ -60,12 +60,12 @@ public class SimpleSemaphore {
      */
     void release() {
         // TODO - you fill in here
-    	rentLock.lock();
+    	renLock.lock();
     	try{
-    		numPermits++;
+    		availPermits++;
     		cond.signalAll();
     	}finally{
-    		rentLock.unlock();
+    		renLock.unlock();
     	}
     }
 
@@ -73,7 +73,7 @@ public class SimpleSemaphore {
      * Define a ReentrantLock to protect the critical section.
      */
     // TODO - you fill in here
-    ReentrantLock rentLock ;
+    ReentrantLock renLock ;
     
     
     /**
@@ -87,5 +87,5 @@ public class SimpleSemaphore {
      * Define a count of the number of available permits.
      */
     // TODO - you fill in here
-    int numPermits;
+    int availPermits;
 }
